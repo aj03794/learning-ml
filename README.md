@@ -2,6 +2,29 @@
 
 ## Course
 
+- https://developers.google.com/machine-learning/crash-course
+- This course is specifically on supervised machine learning
+
+## Framing
+
+- ML systems learn how to combine input to produce useful predictions on never-before-seen data
+
+### Labels
+
+- *Thing we're predicting* - the `y` variable in simple linear regression.
+- Future price of wheat, type of animal in a picture, meaning of an audio clip, etc
+
+### Feature
+
+- Input variable - the `x` variable in simple linear regression
+- Email spam detector example
+  - Words in the email text
+  - Sender's address
+  - Time of day the email was sent
+  - Email contains the phrase...
+
+## Course
+
 - https://app.pluralsight.com/library/courses/understanding-machine-learning
 
 ## What Is Machine Learning
