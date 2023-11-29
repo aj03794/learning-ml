@@ -23,6 +23,144 @@
   - Time of day the email was sent
   - Email contains the phrase...
 
+### Example
+
+- Particular instance of data, **x**
+- Two types of examples
+  - Labeled examples
+  - Unlabeled examples
+- A **labeled example** contains both feature(s) and labels
+  - Use these to `train` your model
+  - Labeled examples would be individual emails that have explicitly marked as "spam" or "not spam"
+- Following is an example of 5 labeled examples containing info about housing prices in California
+![](./images/img.png)
+- An **unlabeled example** contains features but not the label
+  - Note that it excludes `medianHouseValue`
+![](./images/img_1.png)
+
+### Models
+
+- Defines the relationship between features and label
+- A spam detection model might associate certain features strongly with spam
+- 2 phases of model's life
+  - **Training** means creating or **learning** the model
+    - Show the model labeled examples and enable the model to gradually learn the relationship 
+      between features and label
+  - **Inference** means applying the trained model to unlabeled examples
+    - Use the trained model to make useful predictions
+
+### Regression vs Classification
+
+- A **regression** model predicts continuous values
+  - What is the value of a house in California
+  - What is the probability that a user will click on this ad
+- A **classification** model predicts discrete values
+  - Is the email message spam or not spam
+  - Is this an image of a dog, a cat, or a hamster?
+
+## Descending into ML
+
+### Linear Regression
+
+- Plot shows temperature rising with number of chirps
+
+![](./images/img_4.png)
+
+- *y = mx + b*
+  - `y` is temperature in celsius - the value we're trying to predict
+  - `m` is the slop of the line
+  - `x` is the number of chirps per minute - value of our input feature
+  - `b` is the y-intercept
+- In ML, equation is y`<sup>'</sup> = b + w<sub>1</sub>x<sub>1</sub>
+  - *y<sup>'</sup>* is the predicated label (a desired output)
+  - *b* is the bias (y-intercept) sometimes referred to as *w<sub>0</sub>*
+  - *w<sub>1</sub>* is the weight of feature 1
+    - Weight is the same concept as "slope" *m* in the traditional equation of a line
+  - *x<sub>1</sub>* is a feature (known input
+- Can have multiple features
+  - y' = b  + w<sub>1</sub>x<sub>1</sub> + w<sub>2</sub>x<sub>2</sub>
+
+### Training and Loss
+
+- **Training** a model means learning (determining) good values for all the weights and bias 
+  from labeled examples
+- In supervised learning, a machine learning algorithm builds a model by examining many examples 
+  and attempting to find a model that minimizes loss; this is called **empirical risk minimization**
+- **Loss** is a number indicating how bad the model's prediction was on a single example
+  - If the model's prediction is perfect, the loss is zero; otherwise the loss is greater than 0
+  - The goal of training a model is to find a set of weights and biases that have *low* loss
+- Below example arrow represents loss, and blue lines represent predictions
+![](./images/img_2.png)
+
+#### Squared Loss: A popular loss function
+
+- Line regression model here uses a loss function called **squared loss** (also known as 
+  L<sub>2</sub>loss)
+
+```
+  = the square of the difference between the label and the prediction
+  = (observation - prediction(x))2
+  = (y - y')2
+```
+
+- **Mean square error (MSE)** is the average squared loss per example over the whole dataset
+- Sum up all the squared losses for individual examples and divide by the number of examples
+
+![](./images/img_3.png)
+
+- An `(x, y)` is an example which
+  - *x* is the set of features that the model uses to make predictions
+  - *y* is the example's label
+- `prediction(x)` is a function of the weights and bias in combination with the set of features *x*
+- `D` is a dataset containing many labeled examples which are `(x,y)` pairs
+- `N` is the number of examples in `D`
+
+![](./images/img_5.png)
+
+## Reducing Loss
+
+### An Iterative Approach
+
+- Iterative trial and error process
+
+![](./images/img_6.png)
+
+- The *model* takes one or more features as input and returns one prediction `y'` as output
+  - *y' = b + w<sub>1</sub>x<sub>1</sub>
+- What initial values should we set for *b* and *w~1~*
+- *For linear regression problems, it turns out that the starting values aren't important. We 
+  could pick random or trivial values*
+  - `b = 0`
+  - `w1 = 0`
+- Say that first feature value `x1` is 10
+  - `y' = 0 + 0 * 10 = 0`
+- The "Compute Loss" part of the diagram is the loss function that the model will use
+- Suppose we use the squared loss function - takes two inputs
+  - `y'` = model's prediction for features *x*
+  - `y` = correct label correspond to features *x*
+- In "Compute update parameters", the machine learning system examines the value of the loss 
+  function and generates new values for `b` and `w1`
+  - Assume this section devises new values and then the machine learning system re-evaluates all 
+    those features against all those labels, yielding a new value for the loss function, which 
+    yields new input parameters
+  - The learning continues until the algorithm discovers the model parameters with the lowest 
+    possible loss
+  - Iterate until overall loss stops changing or at least changes extremely slowly - the model 
+    has **converged**
+
+### Gradient Descent
+
+- Section talks about how the "Compute parameter updates" box actually works
+- In gradient descent, a *batch* is a set of examples you use to calculate the gradient in a 
+  single training iteration
+- We can use the whole data set if it's not too large
+- We could choose 1 example per iteration (batch size = 1) - `Stocahastic gradient descent`
+- We could use multiple examples to work with per iteration - `Mini-batch stochastic gradient 
+  descent`
+
+-------------------------------
+-------------------------------
+
 ## Course
 
 - https://app.pluralsight.com/library/courses/understanding-machine-learning
