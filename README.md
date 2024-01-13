@@ -23,6 +23,183 @@
   - Time of day the email was sent
   - Email contains the phrase...
 
+### Hyperparameters
+
+- A parameter whose value is set before the learning proces begins
+- Model parameters are learned during training, but hyperparameters are configuration variables that govern the training process itself
+- Tuning can be done manually, through grid search, random search, or more advanced methods like Bayesian optimization
+- Choice and tuning of hyperparameters can significantly affect the performance of a ML model
+
+#### Learning Rate
+
+- Probably most important hyperparamter
+- Controls how much the model is adjusted during training with respect to the loss gradient
+- Too high a learning rate can cause the model to converge too quickly to a suboptimal point
+- Too low a rate can make the training unnecessarily slow
+
+#### Number of Epochs
+
+- Number of times the learning algorithm will work through the entire dataset
+- Too few epochs can result in underfitting, while too many can lead to overfitting
+
+#### Batch Size
+
+- In context of mini-batch gradient descent, this refers to the number of training examples used in 1 iteration
+- Can affect the model's convergence speed and overall learning dynamics
+- One epoch comprises one or more batches (based on batch size)
+
+#### Number of Hidden Layers and Neurons in Neural Networks
+
+- The structure of a neural network (how many layers and how many neurons in each layer) is a key hyperparameter
+- Determines complexity and capacity of the model
+- A model with more neurons can capture more complex patterns in the data BUT if the model is too complex it can lead to overfitting
+  - Overfitting happens when the model learns the noise and details in the training data to an extent that it negatively impacts the performance on new, unseen data
+- More neurons means more parameters to train which increases the computational resourecs and time required for training
+  - With more neurons the model can become significantly slower to train, and might require more memory and processing power
+
+#### Activation Function
+
+- Functions like ReLU, sigmoid, and tanh determine the output of a neuron given an input or set of inputs
+- Different activation functions can drastically change the behavior of a neural network
+- Sigmoid is typically used on the output when we have a binary classification problem
+
+#### Regularization Parameters
+
+- Techniques like L1 and L2 regularization are used to prevent overfitting by penalizing large weights
+- The strength of the regularization is controlled by hyperparameters
+
+#### Learning Rate Decay
+
+- Rate at which the learning rate decreases over epochs
+ 
+### Gradient Descent
+
+- Helps model find the optimal set of parameters by iteratively adjusting them in the opposite direction of the gradient
+  - Optimal set of parameters yields the lowest cost
+- The *learning rate* determines the step size take in each iteration which influences the speed and stability of convergence
+
+![Alt text](./images/24.png)
+
+- Gradient descent is an iterative optimization algorithm for finding the local minimum of a function
+
+#### Cost/Loss Function
+
+- Measures the performance of a model for any given data
+- **Quantifies the error  between predicted values and expected values and presents it in the form on a single real number**
+- You use the Gradient Descent algorithm over the given data
+- **Cost Function and Loss Function are often used interchangeably**
+  - Loss function is associated with every training example, and the cost function is the average of the loss function over all the data samples
+
+#### Gradient Descent
+
+- Optimization algorithm used in machine learning to minimize the cost function by iteratively adjusting parameters in the direction of the negative gradient, aiming to find the optimal set of parameters
+
+#### Types of Gradient Descent
+
+##### Batch Gradient Descent
+
+- Update's the model's parameters using the gradient of the entire training set
+- Calculates the average gradient of the cost function for all training examples and updates the parameters in the opposite direction
+- Batch gradient descent gaurantees convergence to a global minimum, but can be computationally expensive and slow for large datasets
+
+##### Stochastic Graident Descent
+
+- Updates the model's parameters using the gradient of one training example at a time
+- Randomly selects a training example, computes the gradient of the cost function for that example, and updates the parameters in the opposite direction
+- Computationally efficient and can converge faster than batch gradient descent, but it can be noisy and not converge to the global minimum
+
+##### Mini-Batch Gradient Descent
+
+- Updates the model's parameters using the gradient of a small subset of the training data (known as a mini-batch)
+- calculates average gradient of the cost function and updates the model's parameters
+- Combines advantages of both batch and stochastic gradient descent
+- Mostly commonly used method in practice
+
+
+#### Alpha - The Learning Rate
+
+- Decies the sie of the step we must take along the gradient
+- **Must be chosen carefully to choose global minimal and not some local minimal**
+
+![Alt text](./images/25.png)
+
+#### Local Minima
+
+- Cost function may consist of many minimum points
+- The gradient may settle on any one of the minima whhich depends on the initial point and the learning rate, so the optimization may converge to different points with different starting points and learning rate
+
+![Alt text](./images/26.png)
+
+#### Challenges of Gradient Descent
+
+- Local Optima
+  - Gradient descent can converge to local optima instead of the global optimum especially if the cost function has multiple peaks and valleys
+- Learning Rate selection
+  - Can significantly impact the performance of gradient descent
+  - If learning rate is too high, the algorithm may overshoot the minimum, and if it is too low, the algorithm may take too long to converge
+- Overfitting
+  - Gradient descent can overfit the data if the model is too complex or the learning rate is too high
+    - Can lead to poor generalization performance on new data
+- Convergence Rate
+  - Convergence rate of gradient descent can be slow or for large datasets of high-dimensional spaces which can make the algorithm computationally expensive
+  - **Improvement stops (or it becomes almost impercetible) after a certain number of epochs**
+- Saddle Points
+  - Gradient of the cost function can have saddle points which can cause gradient descent to get stuck in a plateau instead of converging to a minimum
+
+
+#### Types of Cost/Loss Functions
+
+- Mean Squared Error (MSE)
+- Cross-Entropy Loss (Log Loss)
+- Mean Absolute Error (MAE)
+- Hinge Loss
+- Binary Cross-Entropy
+- Categorial Cross-Entropy
+- Huber Loss
+- Kullbacker-Leibler Divergence
+- Cosine Similarity
+- Focal Loss
+
+##### Binary Cross Entropy
+
+- Used to measure the performance of a classification model whose output is a probability between 0 and 1
+- Also called logarithmic loss or log loss
+- Metric used to evaluate models by measuring the extent of incorrect labeling of data classes
+- Penalizes the model for deviations in probability that result in misclassification of the labels
+- When the log loss value is low, it indicates a high level of accuracy in the model's predictions
+
+--------
+**Intuitive Explanation**
+
+- Imagine you're a teacher grading a true/false quiz
+- For each question, a student either gets it right or wrong, but they also tell you how confident they are in their answer
+- The **true/false answers** represent whether actual classes (0 or 1) in your binary classification problem
+- The **student's confidence** level represents the predicted probability between (0 and 1) that a given class label is the correct one
+
+<br>
+
+**Key Concepts**
+
+- **Accuracy vs Confidence**
+  - it's not just about whether the student (aka your modeL) gets the answer right or wrong, but also about how confident they are in their answer
+- **Penalizaing Overconfidence and Underconfidence**
+  - If a student is very confident (say 90% sure) but gets the answer wrong, they should be penalized more heavily because their high confidence was misleading
+  - If a student is very confident and correct, they should be rewarded more than if they were not confident in their correct answer
+- **Calculating the "Grade" (Loss)**
+  - For each question (data point), you assess the student's performance based on their confidence and whether they got it right or wrong
+  - A perfect score is achieved when the student is 100% confident and correct, resulting in no penalty (zero loss)
+  - The worst score is when a student is 100% confident but completely wrong, resulting in a heavy penalty (high loss)
+- **Averaging the Scores**
+  - At the end of the quiz, you average all the scores for all the questions to get the overall performance (the average loss across all data points)
+
+<br>
+
+**In the Context of Machine Learning**
+
+- When your model predicts a data point, it says, *I am X% sure this point belongs to class 1*
+- Binary Cross-Entropy is like your grading scheme
+  - It penalizes the model for being confident and wrong but rewards it for being confident and right
+- Goal in training the model is to minimize this penalty (loss) across all data points, making the model not only accurate but also appropriately confident in its predictions
 
 ### Representation
 
@@ -227,7 +404,68 @@
 
 ### Regularization
 
-- 
+- Technique used to prevent overfitting of a model on the training data, which can negatively impact the model's performance on new, unseen data
+- Overfitting occurs when a model learns the detail and noise in the training data to the extent that it negatively impacts the performance of the model on a new data
+- Regularization addresses this by adding a penalty to the loss function used to train the model
+
+![Alt text](./images/27.png)
+
+- As we move towards the right in this image, our model tries to learn *too* well the details and the noise from the training data which ultimately results in poor performance on the unseen data
+
+![Alt text](.images/28.png)
+
+- In ML, regularization penalizes the coefficients
+- In deep learning, regularization penalizes the weight matrices of the nodes
+
+#### Different Regularization Techniques in Deep Learning
+
+##### L1 & L2 Regularization
+
+- L1 Regularization = Lasso Regularization
+- L2 = Ridge Regularization
+- Most common types
+- Update the general cost function by adding another term knows as the regularization
+- *Cost function = Loss(binary cross entropy) + Regularization term*
+
+---------
+**L1 Regularization**
+
+- Imagine you're an artist and you're asked to draw a landscape using a limited number of colors
+- You decide to only use the colors that are absolutely necessary to capture the essence of the landscape
+- This is similar to what L1 regularization does in machine learning
+- **How it works**
+  - L1 regularization adds the absolute values of the coefficients to the loss function - this is like saying *I want to keep my model simple by using as few features (colors from the artist example) as possible*
+- **Effect**
+  - Tends to zero out the less important features' coefficients effectively removing them from the model (like deciding not to use certain colors in your drawing)
+    - This results in a sparse model where only the most significant features are used
+- Like being selective with your colors in a drawing, picking only the essential ones and ignoring the others
+---------
+
+---------
+**L2 Regularization**
+- Imagine you're asked to paint the same landscape but with a twist: you can use all your colors, but you must use them in such a way that no single color dominates the paintining
+- This is akin to L2 regularization
+- **How it works**
+  - L2 adds the square of the coefficient values to the loss function - this is like saying *I want to use all my features (colors), but I want to balance their contributions so no single feature (color) is overwhelming*
+- **Effect**
+  - Doesn't eliminate any features (colors) completely like L1 does
+  - Reduces impact of less important features and helps to keep the model coefficients (color intensities) moderate, preventing any one feature from having too much influence on the model
+
+#### Dropout
+
+- Produces very good results and is consequently the most frequently used regularization technique in the field of deep learning
+- Let's say neural network looks like the below
+
+![Alt text](./images/29.png)
+
+- At every iteration, dropout randomly selects some nodes and removes them along with all of their incoming and outgoing connections
+
+![Alt text](./images/30.png)
+
+- Each iteration has a different set of nodes and this results in a different set of output
+- The probability of choosing how many nodes should be dropped is a hyperparameter of the dropout function
+- Dropout can be applied to both the hidden layers as well as the input layers
+- Dropout is usualy preferred when we have a large neural network in order to introduce more randomness
 
 ## Course
 
@@ -332,17 +570,37 @@
 
 ### Terminology
 
-- Training data
+- **Training data**
     - Prepared data used to create a model
     - Creating a model is called *training* a model
-- Supervised learning
+- **Supervised learning**
     - The value you want to predict is in the training data
         - In credit card example, whether transaction was fraudalent or not was contained in each record
         - This data is *labeled*
         - More common than unsupervised learning
-- Unsupervised learning
+- **Unsupervised learning**
     - Value you want to predict is NOT in the training data
     - The data is not labeled
+
+
+#### Epochs
+
+- During an epoch, every sample in the training data is presented to the model exactly once - this means that if you have 1000 samples, each of those samples will be used for training the model during the epoch
+- **Learning Process** The model learns by adjusting its weight based on the error of its predictions compared to the actual outcomes
+  - In supervised learning, this is typically done using a method called backpropagation
+- **Multiple Epochs in Training** Training a machine learning model involves multiple epochs
+  - Going through the data once is often not enough for the model to learn effectively
+  - By repeatedly going through the dataset, the model has a cahnce to refine its weight  and biases to minimize error
+- **Balancing Epochs** The number of epochs is an important *hyperparameter* in training a machine learning model
+  - Too few epochs can lead to underfitting, where the model does not learn enough from the data
+  - Too many epochs can lead to overfitting, where the model starts to learn the noise in the training data as if it were a meaningful input
+- **Epochs and Batch Size** In large datasets, each epoch is often divided into smaller batches of data
+  - Processing the entire dataset at once can be computationally expensive and impractical
+  - Model's weights are updated after each batch, and one epoch is completed when all batches have been processed
+  - If you have 1000 samples and a *batch_size* of 100, it takes 10 iterations (batches) to complete one epoch
+- Useful to measure how our metrics (like accuracy) increases on training and test sets when number of epochs increases
+
+![Alt text](image.png)
 
 ### Data Pre-Processing
 
@@ -449,4 +707,30 @@
 ### Neural Networks
 
 #### Binary Classification
+
+## AutoML
+
+- Ideally you want to provide esaily accessible deep learning tools to domain experts w/o requiring a strong machine learning background
+  - Problem is that it is not easy to explain to the users of your model why a *particular* composition of a model works
+    - For example, with breast cancer detection via X-ray, why does one CNN work better than another?
+- It is not easy to understand whether or not there are different compositions of the manually crafted model that can achieve better results
+  - Ideally you want to provide deep learning tools for exploring the space of variants (for example, different compositions) in a more principled and automatic way
+- Central idea of AutoML is to reduce the steep learning curve and the huge costs of handcrafting machine learning solutions by making the whole end-to-end machine learning pipeline more automated
+- The AutoML pipeline consists of 3 macro steps
+  - data preparation
+  - feature engineering
+  - automatic model generation
+
+![Alt text](./images/32.png)
+
+## General Terminology
+
+### Coefficients
+
+- Term *coefficient* refers to the weights assigned to each feature (or input variable) in the model
+- Imagine a model represented by equation `y = B0 + B1*X1 + B2*X2 + .... + BN*XN`
+- B0 is the intercept and B1, B2, BN are the coefficients
+- Coefficients can be seen as a measure of feature importance
+- A feature with very low or zero coefficient has little to no influence on the model's predictions
+
 
