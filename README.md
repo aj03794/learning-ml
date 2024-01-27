@@ -710,10 +710,12 @@
 
 ## AutoML
 
-- Ideally you want to provide esaily accessible deep learning tools to domain experts w/o requiring a strong machine learning background
+- Ideally you want to provide easily accessible deep learning tools to domain experts w/o 
+  requiring a strong machine learning background
   - Problem is that it is not easy to explain to the users of your model why a *particular* composition of a model works
     - For example, with breast cancer detection via X-ray, why does one CNN work better than another?
-- It is not easy to understand whether or not there are different compositions of the manually crafted model that can achieve better results
+- It is not easy to understand whether there are different compositions of the manually 
+  crafted model that can achieve better results
   - Ideally you want to provide deep learning tools for exploring the space of variants (for example, different compositions) in a more principled and automatic way
 - Central idea of AutoML is to reduce the steep learning curve and the huge costs of handcrafting machine learning solutions by making the whole end-to-end machine learning pipeline more automated
 - The AutoML pipeline consists of 3 macro steps
@@ -722,6 +724,16 @@
   - automatic model generation
 
 ![Alt text](./images/32.png)
+
+### Automatic Data Preparation
+
+- First stage of a typical machine learning pipeline deals with data preparation
+- **Data cleansing**
+  - Improving quality of data by checking for wrong data types, missing values, and errors, and 
+    by applying data normalization, bucketization, scaling, and encoding
+  - AutoML pipeline should automate these mundane but important steps
+- **Data synthesis**
+  - Generating synthetic data via augmentation for training, evaluation, and validation
 
 ## General Terminology
 
